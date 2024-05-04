@@ -73,10 +73,16 @@ class ExcelCube:
 
         workbook = openpyxl.Workbook()
         sheet = workbook.active
-        row, col = 1, 1
-        sheet.cell(row=1, column=1).value = 'Дата'
+        row, col = 1, 2
+        row_id = 0
+
+        sheet.cell(row=1, column=1).value = '№'
         sheet.cell(row=1, column=1).font = Font(bold=True)
         sheet.cell(row=1, column=1).alignment = Alignment(horizontal='center')
+
+        sheet.cell(row=1, column=2).value = 'Дата'
+        sheet.cell(row=1, column=2).font = Font(bold=True)
+        sheet.cell(row=1, column=2).alignment = Alignment(horizontal='center')
 
         for i in range(len(self.dimensions)):
             dim = self.dimensions[i]
@@ -84,7 +90,7 @@ class ExcelCube:
             for field in dim.fields:
                 col += 1
 
-                if field == 'value':
+                if field.lower() == 'value':
                     sheet.cell(row=1, column=col).value = f'{dim.name}'
                 else:
                     sheet.cell(row=1, column=col).value = f'{dim.name}.{field}'
@@ -103,8 +109,10 @@ class ExcelCube:
 
             for i in range(0, cnt_rows):
                 row += 1
-                sheet.cell(row=row, column=1).value = current_date
-                col = 1
+                row_id += 1
+                sheet.cell(row=row, column=1).value = row_id
+                sheet.cell(row=row, column=2).value = current_date
+                col = 2
 
                 for dim in self.dimensions:
                     dim_item_id = get_random_int(0, len(dim.values) - 1)

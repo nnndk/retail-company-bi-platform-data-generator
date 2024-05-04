@@ -18,7 +18,7 @@ def create_example_excel():
 
     goods = {'value': ['Карандаш', 'Пластелин', 'Ручка', 'Тетрадь', 'Циркуль', 'Калькулятор'],
              'Цена': ['25', '210', '35', '12', '300', '500']}
-    dim_goods = ExcelCube.create_excel_dim('Товар', ['value', 'Цена'], goods)
+    dim_goods = ExcelCube.create_excel_dim('Товар', ['Название', 'Цена'], goods)
 
     facts = [ExcelFactDimension('Количество', 23, 55)]
 
